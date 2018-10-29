@@ -74,7 +74,11 @@
           cursor: pointer;
       }
       .clearfix{zoom:1}
-     .clearfix:after{content:'';display:table;clear:both}
+      .clearfix:after{content:'';display:table;clear:both}
+      .active{
+          background:#f3181d;
+          color:white;
+      }
     </style>
 </head>
 <body>
@@ -190,6 +194,10 @@
     for(var i=0;i<allCC.length;i++){
        allCC[i].index=i;
        allCC[i].onclick=function(){
+        for(var k=0;k<allCC.length;k++){
+            allCC[k].className='j_q';
+        }
+        this.className='active';
         CC_Tab.innerHTML="";
         var str="";
         for(var i in CC_DATA.name){
