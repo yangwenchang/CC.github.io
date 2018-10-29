@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>串串产量表</title>
+    <style>
+      *{margin:0;padding:0}
+     table{
+        border-collapse:collapse;border-spacing:0;
+         width:500px;
+         border:1px solid #ccc;
+         padding:3px;
+
+     }
+      td,th{
+          border:1px solid #ccc;
+          text-align: center;
+          padding:4px;
+      }
+      #each_total{
+          border:1px solid red;
+          width:500px;
+          
+      }
+      .last_tr{
+          position:absolute;
+          left: 500px;
+          top:22px;
+      }
+    </style>
+</head>
+<body>
+    <table id="CC_Tab">
+ 
+    </table>
+    <!-- <div id="each_total">
+        <div class='niu_du'></div>
+    </div> -->
+</body>
+<script>
+    // var d = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+    // var a=new setUTCDate();
+     //获取当天的是几号：
+     var get_Today=new Date().getDate();
+     var CC_Tab=document.getElementById('CC_Tab');
+     var each_total=document.getElementById('each_total');
+    
+    // console.log(niu_du.length)
+    // console.log(d)
+    var CC_DATA={
+         "name":['日期/名称','牛肚','虾','木耳','海带','豆腐'],    
+    }
+    var CC_DATAS={
+          
+         "1号":[110,120,130,140,150],
+         "2号":[220,230,240,250,260],
+    }
+    var str="";//存放th标题即产量名称
+    for(var i in CC_DATA.name){
+      // console.log(i)
+         //console.log(CC_DATA.name[i])
+        //console.log(CC_DATA.name)
+         str+="<th>"+CC_DATA.name[i]+"</th>"
+         //CC_Tab.innerHTML=str;
+    }
+    CC_Tab.innerHTML="<tr>"+str+"</tr>";
+    //console.log(str) 
+    var ts=""
+    for(var j in CC_DATAS){
+        //console.log(j) //day1 ,day2 ....
+           //console.log(CC_DATAS[j])
+         ts+="<tr><td>"+j+"</td>"
+           for(var k=0;k<CC_DATAS[j].length;k++){
+               ts+="<td class='list"+k+"'>"+CC_DATAS[j][k]+"</td>"
+                 // console.log(CC_DATAS[j][k])
+           }
+          "</tr>"
+         
+    }
+    CC_Tab.innerHTML+=ts
+    window.onload=function(){
+        //添加
+        var td2=CC_Tab.getElementsByClassName('list0');
+        var td3=CC_Tab.getElementsByClassName('list1');
+        var td4=CC_Tab.getElementsByClassName('list2');
+        var td5=CC_Tab.getElementsByClassName('list3');
+        var td6=CC_Tab.getElementsByClassName('list4');
+        // var td6=CC_Tab.getElementsByClassName('list4');
+        // var td7=CC_Tab.getElementsByClassName('list5');
+        var arrTotal=[];
+        ////添加
+         var niu_du_total=new Number();
+         var xia_total=new Number();
+         var muer_total=new Number();
+         var haidai_total=new Number();
+         var doufu_total=new Number();
+         //添加
+        for(var i=0;i<td2.length;i++){
+           // console.log(td2[i].innerHTML)
+            niu_du_total+=parseFloat(td2[i].innerHTML);
+        }
+        for(var i=0;i<td3.length;i++){
+             xia_total+=parseFloat(td3[i].innerHTML);
+        }
+        for(var i=0;i<td4.length;i++){
+             muer_total+=parseFloat(td4[i].innerHTML);
+        }
+        for(var i=0;i<td5.length;i++){
+            haidai_total+=parseFloat(td5[i].innerHTML);
+        }
+        for(var i=0;i<td6.length;i++){
+            doufu_total+=parseFloat(td6[i].innerHTML);
+        }
+        
+         //添加
+         arrTotal.push(niu_du_total)
+         arrTotal.push(xia_total)
+         arrTotal.push(muer_total)
+         arrTotal.push(haidai_total)
+         arrTotal.push(doufu_total)
+         //-----------------------------------
+         var str_z='';
+              for(var i=0;i<arrTotal.length;i++){
+                str_z+="<th>"+arrTotal[i]+"</th>"
+              }
+         CC_Tab.innerHTML+="<tr><th>总数</th>"+str_z+"</tr>"
+
+         //-------------------
+         //每天的总数：
+         var each_tr=CC_Tab.getElementsByTagName("tr");
+         var each_total=[];
+         for(var i=1;i<each_tr.length-1;i++){
+            var each_td=each_tr[i].getElementsByTagName("td");
+            let num_total=new Number();
+            for(var j=1;j<each_td.length;j++){
+                num_total+=parseFloat(each_td[j].innerHTML)
+            }
+           each_total.push(num_total)
+         }
+        var last_tr='';
+        for(var i=0;i<1;i++){
+             last_tr+="<tbody class='last_tr'>"
+              for(var j=0;j<each_total.length;j++){
+                last_tr+="<tr class='each_total'><td>"+each_total[j]+"</td></tr>"
+              }
+             last_tr+='</tbody>'
+            CC_Tab.innerHTML+=last_tr
+        }
+      
+    }
+  
+</script>
+</html>
